@@ -119,114 +119,108 @@ export default function ExpenseTracker() {
   const netBalance = totalIncome - totalExpense;
 
   return (
-    <div className="max-w-6xl mx-auto p-6 md:p-8 bg-white rounded-xl shadow-lg my-10 font-sans">
-      <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">Expense Tracker</h2>
+    <div style={styles.container}>
+      <h2 style={styles.heading}>Expense Tracker</h2>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div className="p-6 rounded-lg text-white text-center shadow-md bg-emerald-500">
-          <h3 className="text-lg font-medium opacity-90">Total Income</h3>
-          <p className="text-3xl font-bold mt-2">${totalIncome.toFixed(2)}</p>
+      <div style={styles.summaryContainer}>
+        <div style={{ ...styles.card, ...styles.incomeCard }}>
+          <h3>Total Income</h3>
+          <p style={styles.amountText}>${totalIncome.toFixed(2)}</p>
         </div>
-        <div className="p-6 rounded-lg text-white text-center shadow-md bg-rose-500">
-          <h3 className="text-lg font-medium opacity-90">Total Expense</h3>
-          <p className="text-3xl font-bold mt-2">${totalExpense.toFixed(2)}</p>
+        <div style={{ ...styles.card, ...styles.expenseCard }}>
+          <h3>Total Expense</h3>
+          <p style={styles.amountText}>${totalExpense.toFixed(2)}</p>
         </div>
-        <div className="p-6 rounded-lg text-white text-center shadow-md bg-blue-600">
-          <h3 className="text-lg font-medium opacity-90">Net Balance</h3>
-          <p className="text-3xl font-bold mt-2">${netBalance.toFixed(2)}</p>
+        <div style={{ ...styles.card, ...styles.balanceCard }}>
+          <h3>Net Balance</h3>
+          <p style={styles.amountText}>${netBalance.toFixed(2)}</p>
         </div>
       </div>
 
       {/* Split Layout: Form Left, Transaction History Right */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-        
+      <div style={styles.mainLayout}>
         {/* Left Column: Form Section */}
-        <div>
-          <form onSubmit={handleSubmit} className="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col gap-5">
-            <h3 className="text-xl font-semibold text-gray-800 border-b pb-3 border-gray-200">
-              {editId !== null ? 'Edit Transaction' : 'Add New Transaction'}
-            </h3>
+        <div style={styles.column}>
+          <form onSubmit={handleSubmit} style={styles.form}>
+            <h3>{editId !== null ? 'Edit Transaction' : 'Add New Transaction'}</h3>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</label>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Date</label>
               <input
                 type="date"
                 name="date"
                 value={formData.date}
                 onChange={handleInputChange}
-                className="p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-gray-700"
+                style={styles.input}
                 required
               />
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Title</label>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Title</label>
               <input
                 type="text"
                 name="title"
-                placeholder="Enter title"
+                placeholder="Title"
                 value={formData.title}
                 onChange={handleInputChange}
-                className="p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-gray-700"
+                style={styles.input}
                 required
               />
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Amount</label>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Amount</label>
               <input
                 type="number"
                 name="amount"
-                placeholder="Enter amount"
+                placeholder="Amount"
                 value={formData.amount}
                 onChange={handleInputChange}
-                className="p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-gray-700"
+                style={styles.input}
                 step="0.01"
                 required
               />
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Category</label>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Category</label>
               <input
                 type="text"
                 name="category"
-                placeholder="e.g. Food, Utilities, Salary"
+                placeholder="Category (e.g. Food, Utilities)"
                 value={formData.category}
                 onChange={handleInputChange}
-                className="p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-gray-700"
+                style={styles.input}
               />
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Type</label>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Type</label>
               <select
                 name="type"
                 value={formData.type}
                 onChange={handleInputChange}
-                className="p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-gray-700 bg-white"
+                style={styles.select}
               >
                 <option value="expense">Expense</option>
                 <option value="income">Income</option>
               </select>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</label>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Description</label>
               <textarea
                 name="description"
                 placeholder="Add some details..."
                 value={formData.description}
                 onChange={handleInputChange}
-                className="p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-gray-700 resize-none h-20"
+                style={styles.textarea}
               />
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-indigo-700 transition duration-150 font-semibold shadow-sm mt-2"
-            >
+            <button type="submit" style={styles.button}>
               {editId !== null ? 'Update Transaction' : 'Add Transaction'}
             </button>
 
@@ -234,7 +228,7 @@ export default function ExpenseTracker() {
               <button
                 type="button"
                 onClick={handleCancelEdit}
-                className="w-full bg-gray-500 text-white p-3 rounded-md hover:bg-gray-600 transition duration-150 font-semibold shadow-sm"
+                style={{ ...styles.button, ...styles.cancelButton }}
               >
                 Cancel Edit
               </button>
@@ -243,53 +237,50 @@ export default function ExpenseTracker() {
         </div>
 
         {/* Right Column: Transaction History Section */}
-        <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-3 border-gray-200">Transaction History</h3>
+        <div style={styles.column}>
+          <h3>Transaction History</h3>
           {transactions.length === 0 ? (
-            <p className="text-gray-500 italic text-center py-8 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-              No transactions added yet.
-            </p>
+            <p style={styles.emptyText}>No transactions added yet.</p>
           ) : (
-            <ul className="space-y-4 max-h-[580px] overflow-y-auto pr-2">
+            <ul style={styles.list}>
               {transactions.map((t) => (
                 <li
                   key={t.id}
-                  className={`p-4 bg-white border border-gray-200 shadow-sm rounded-r-md flex justify-between items-center gap-6 ${
-                    t.type === 'income' ? 'border-l-4 border-emerald-500' : 'border-l-4 border-rose-500'
-                  }`}
+                  style={{
+                    ...styles.listItem,
+                    borderLeft: t.type === 'income' ? '4px solid #10b981' : '4px solid #ef4444'
+                  }}
                 >
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center">
-                      <strong className="text-gray-800 truncate text-base">{t.title}</strong>
-                      <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full ml-2">
-                        {t.category || 'Uncategorized'}
-                      </span>
+                  <div style={styles.listContent}>
+                    <div>
+                      <strong>{t.title}</strong>
+                      <span style={styles.badge}>{t.category || 'Uncategorized'}</span>
+                      <p style={styles.desc}>{t.description}</p>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1 line-clamp-2">{t.description || 'No description provided.'}</p>
-                  </div>
-
-                  <div className="flex flex-col items-end shrink-0">
-                    <span className="text-xs text-gray-400 font-medium">{t.date}</span>
-                    <span
-                      className={`text-base font-bold mt-0.5 ${
-                        t.type === 'income' ? 'text-emerald-600' : 'text-rose-600'
-                      }`}
-                    >
-                      {t.type === 'income' ? '+' : '-'}${t.amount.toFixed(2)}
-                    </span>
-                    <div className="flex gap-2 mt-2">
-                      <button
-                        onClick={() => handleEdit(t.id)}
-                        className="text-xs bg-blue-500 text-white px-2.5 py-1 rounded hover:bg-blue-600 transition duration-150 shadow-sm"
+                    <div style={styles.listRight}>
+                      <span style={styles.date}>{t.date}</span>
+                      <span
+                        style={{
+                          ...styles.amount,
+                          color: t.type === 'income' ? '#10b981' : '#ef4444'
+                        }}
                       >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(t.id)}
-                        className="text-xs bg-rose-500 text-white px-2.5 py-1 rounded hover:bg-rose-600 transition duration-150 shadow-sm"
-                      >
-                        Delete
-                      </button>
+                        {t.type === 'income' ? '+' : '-'}${t.amount.toFixed(2)}
+                      </span>
+                      <div style={styles.actions}>
+                        <button
+                          onClick={() => handleEdit(t.id)}
+                          style={{ ...styles.actionBtn, ...styles.editBtn }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(t.id)}
+                          style={{ ...styles.actionBtn, ...styles.deleteBtn }}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -302,3 +293,171 @@ export default function ExpenseTracker() {
   );
 }
 
+// Inline Styles
+const styles = {
+  container: {
+    maxWidth: '1100px',
+    margin: '30px auto',
+    padding: '24px',
+    fontFamily: 'system-ui, -apple-system, sans-serif',
+    backgroundColor: '#ffffff',
+    borderRadius: '8px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  },
+  heading: {
+    textAlign: 'center',
+    color: '#1f2937',
+    marginBottom: '20px'
+  },
+  summaryContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '16px',
+    marginBottom: '32px'
+  },
+  card: {
+    flex: 1,
+    padding: '16px',
+    borderRadius: '6px',
+    color: '#ffffff',
+    textAlign: 'center'
+  },
+  incomeCard: { backgroundColor: '#10b981' },
+  expenseCard: { backgroundColor: '#ef4444' },
+  balanceCard: { backgroundColor: '#3b82f6' },
+  amountText: { fontSize: '24px', fontWeight: 'bold', margin: '8px 0 0' },
+  mainLayout: {
+    display: 'flex',
+    gap: '32px',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start'
+  },
+  column: {
+    flex: '1 1 450px',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  form: {
+    backgroundColor: '#f3f4f6',
+    padding: '20px',
+    borderRadius: '6px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px'
+  },
+  formGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px'
+  },
+  label: {
+    fontSize: '13px',
+    fontWeight: '600',
+    color: '#4b5563'
+  },
+  input: {
+    padding: '8px 10px',
+    border: '1px solid #d1d5db',
+    borderRadius: '4px',
+    fontSize: '14px'
+  },
+  select: {
+    padding: '8px 10px',
+    border: '1px solid #d1d5db',
+    borderRadius: '4px',
+    fontSize: '14px'
+  },
+  textarea: {
+    padding: '8px 10px',
+    border: '1px solid #d1d5db',
+    borderRadius: '4px',
+    fontSize: '14px',
+    minHeight: '60px',
+    resize: 'vertical'
+  },
+  button: {
+    padding: '10px',
+    backgroundColor: '#4f46e5',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '15px',
+    cursor: 'pointer',
+    marginTop: '6px'
+  },
+  cancelButton: {
+    backgroundColor: '#6b7280',
+    marginTop: '0px'
+  },
+  list: {
+    listStyleType: 'none',
+    padding: 0,
+    margin: 0,
+    maxHeight: '520px',
+    overflowY: 'auto'
+  },
+  listItem: {
+    padding: '12px 16px',
+    marginBottom: '10px',
+    backgroundColor: '#f9fafb',
+    border: '1px solid #e5e7eb',
+    borderRadius: '4px'
+  },
+  listContent: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: '12px'
+  },
+  badge: {
+    fontSize: '11px',
+    backgroundColor: '#e5e7eb',
+    padding: '2px 8px',
+    borderRadius: '12px',
+    marginLeft: '8px'
+  },
+  desc: {
+    fontSize: '12px',
+    color: '#6b7280',
+    margin: '6px 0 0'
+  },
+  listRight: {
+    textAlign: 'right',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start'
+  },
+  date: {
+    fontSize: '11px',
+    color: '#9ca3af'
+  },
+  amount: {
+    fontWeight: 'bold',
+    fontSize: '15px'
+  },
+  actions: {
+    display: 'flex',
+    gap: '6px',
+    marginTop: '8px'
+  },
+  actionBtn: {
+    border: 'none',
+    borderRadius: '4px',
+    padding: '3px 8px',
+    cursor: 'pointer',
+    fontSize: '11px',
+    color: '#ffffff'
+  },
+  editBtn: {
+    backgroundColor: '#3b82f6'
+  },
+  deleteBtn: {
+    backgroundColor: '#ef4444'
+  },
+  emptyText: {
+    color: '#6b7280',
+    fontStyle: 'italic'
+  }
+};
+t
